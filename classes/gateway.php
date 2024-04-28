@@ -54,40 +54,6 @@ class gateway extends \core_payment\gateway {
         $mform->setType('apikey', PARAM_TEXT);
 
         $options = [
-        1 => 1,
-        2 => 2,
-        3 => 3,
-        4 => 4,
-        5 => 5,
-        6 => 6,
-        ];
-        $mform->addElement(
-            'select',
-            'taxsystemcode',
-            get_string('taxsystemcode', 'paygw_cryptocloud'),
-            $options
-        );
-        $mform->setType('taxsystemcode', PARAM_INT);
-        $mform->addHelpButton('taxsystemcode', 'taxsystemcode', 'paygw_cryptocloud');
-
-        $options = [
-        1 => get_string('no'),
-        2 => "0%",
-        3 => "10%",
-        4 => "20%",
-        5 => "10/110",
-        6 => "20/120",
-        ];
-        $mform->addElement(
-            'select',
-            'vatcode',
-            get_string('vatcode', 'paygw_cryptocloud'),
-            $options,
-        );
-        $mform->setType('vatcode', PARAM_INT);
-        $mform->addHelpButton('vatcode', 'vatcode', 'paygw_cryptocloud');
-
-        $options = [
         '' => get_string('cryptocloud', 'paygw_cryptocloud'),
         'bank_card' => get_string('plastic', 'paygw_cryptocloud'),
         'yoo_money' => get_string('wallet', 'paygw_cryptocloud'),
