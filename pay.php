@@ -156,6 +156,12 @@ $payment->amount = $cost;
 $payment->currency = $currency;
 $payment->order_id = $transactionid;
 $payment->email = $USER->email;
+$payment->add_fields = [
+    'time_to_pay' => [
+       'hours' => 0,
+       'minutes' => 10,
+    ],
+];
 
 $curlhandler = curl_init();
 curl_setopt($curlhandler, CURLOPT_HTTPHEADER, [

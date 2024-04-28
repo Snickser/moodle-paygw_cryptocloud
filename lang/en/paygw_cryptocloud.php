@@ -26,7 +26,8 @@ $string['pluginname_desc'] = 'The cryptocloud plugin allows you to receive payme
 $string['gatewaydescription'] = 'cryptocloud is an authorised payment gateway provider for processing credit card transactions.';
 $string['gatewayname'] = 'cryptocloud';
 $string['callback_url'] = 'Notification URL:';
-$string['callback_help'] = 'Copy this line and paste it into "HTTP notifications" in the cryptocloud store settings, and enable "payment.succeeded" notifications there.';
+$string['callback_help'] = 'Copy this lines and paste it into the cryptocloud project settings. Switch off "My project on CMS".';
+$string['return_url'] = 'SuccessURL and FailURL:';
 $string['payment_success'] = 'Payment Successful';
 $string['payment_error'] = 'Payment Error';
 $string['password_success'] = 'Paymemt password accepted';
@@ -56,21 +57,3 @@ $string['usedetails_help'] = 'Display a button or password in a collapsed block.
 $string['usedetails_text'] = 'Click here if you are unable to donate.';
 $string['internalerror'] = 'An internal error has occurred. Please contact us.';
 $string['privacy:metadata'] = 'The cryptocloud plugin does not store any personal data.';
-$string['vatcode'] = 'VAT rate';
-$string['vatcode_help'] = 'VAT rate according to YooKass documentation.';
-$string['taxsystemcode'] = 'Tax type';
-$string['taxsystemcode_help'] = 'Type of tax system for generating checks:<br>
-1 - General taxation system<br>
-2 - Simplified (STS, income)<br>
-3 - Simplified (STS, income minus expenses)<br>
-4 - Single tax on imputed income (UTII)<br>
-5 - Unified Agricultural Tax (UST)<br>
-6 - Patent taxation system';
-
-/* Payment systems */
-$string['paymentmethod'] = 'Payment method';
-$string['paymentmethod_help'] = 'Sets the payment method. Make sure the method you choose is supported by your store.';
-$string['cryptocloud'] = 'cryptocloud (all methods)';
-$string['wallet'] = 'YooMoney wallet';
-$string['plastic'] = 'VISA, MasterCard, MIR';
-$string['sbp'] = 'SBP (QR-code)';

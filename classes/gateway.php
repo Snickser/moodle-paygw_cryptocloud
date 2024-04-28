@@ -54,26 +54,6 @@ class gateway extends \core_payment\gateway {
         $mform->addElement('text', 'apikey', get_string('apikey', 'paygw_cryptocloud'), ['size' => 48]);
         $mform->setType('apikey', PARAM_TEXT);
 
-        $options = [
-        '' => get_string('cryptocloud', 'paygw_cryptocloud'),
-        'bank_card' => get_string('plastic', 'paygw_cryptocloud'),
-        'yoo_money' => get_string('wallet', 'paygw_cryptocloud'),
-        'sbp' => get_string('sbp', 'paygw_cryptocloud'),
-        ];
-        $mform->addElement(
-            'select',
-            'paymentmethod',
-            get_string('paymentmethod', 'paygw_cryptocloud'),
-            $options,
-        );
-        $mform->setType('paymentmethod', PARAM_TEXT);
-        $mform->addHelpButton('paymentmethod', 'paymentmethod', 'paygw_cryptocloud');
-
-        $mform->addElement('text', 'fixdesc', get_string('fixdesc', 'paygw_cryptocloud'), ['size' => 50]);
-        $mform->setType('fixdesc', PARAM_TEXT);
-        $mform->addRule('fixdesc', get_string('maximumchars', '', 255), 'maxlength', 255, 'client');
-        $mform->addHelpButton('fixdesc', 'fixdesc', 'paygw_cryptocloud');
-
         $mform->addElement('static');
 
         $mform->addElement(
@@ -127,6 +107,8 @@ class gateway extends \core_payment\gateway {
         $mform->addElement('html', '<div class="label-callback" style="background: #F2EFE6; padding: 15px;">' .
                                     get_string('callback_url', 'paygw_cryptocloud') . '<br>');
         $mform->addElement('html', $CFG->wwwroot . '/payment/gateway/cryptocloud/callback.php<br>');
+        $mform->addElement('html', get_string('return_url', 'paygw_cryptocloud') . '<br>');
+        $mform->addElement('html', $CFG->wwwroot . '/payment/gateway/cryptocloud/return.php<br>');
         $mform->addElement('html', get_string('callback_help', 'paygw_cryptocloud') . '</div><br>');
     }
 
