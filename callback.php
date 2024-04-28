@@ -41,7 +41,7 @@ $currency = $data['currency'] ?? null;
 $orderid = $data['order_id'] ?? null;
 $token = $data['token'] ?? null;
 
- file_put_contents("/tmp/yyyyy", serialize($data) . "\n", FILE_APPEND);
+// file_put_contents("/tmp/yyyyy", serialize($data) . "\n", FILE_APPEND);
 
 if ($status !== 'success') {
     die('FAIL. Payment not successed');

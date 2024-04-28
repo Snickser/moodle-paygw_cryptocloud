@@ -186,7 +186,7 @@ if (empty($confirmationurl)) {
 
 $data = new stdClass();
 $data->id = $transactionid;
-$data->orderid = $response->result->uuid;
+$data->invoiceid = $response->result->uuid;
 $DB->update_record('paygw_cryptocloud', $data);
 
 redirect($confirmationurl);
