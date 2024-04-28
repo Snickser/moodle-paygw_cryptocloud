@@ -33,7 +33,8 @@ class gateway extends \core_payment\gateway {
     public static function get_supported_currencies(): array {
         // 3-character ISO-4217: https://en.wikipedia.org/wiki/ISO_4217#Active_codes.
         return [
-            'RUB',
+            'USD', 'UZS', 'KGS', 'KZT', 'AMD', 'AZN', 'BYN', 'AUD', 'TRY', 'AED', 'CAD', 'CNY', 'HKD', 'IDR',
+            'INR', 'JPY', 'PHP', 'SGD', 'THB', 'VND', 'MYR', 'RUB', 'UAH', 'EUR', 'GBP',
         ];
     }
 
