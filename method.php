@@ -111,10 +111,10 @@ if ($config->showduration) {
 }
 
 $templatedata->passwordmode = $config->passwordmode;
-if ($config->suggest > $fee) {
-    $templatedata->suggest = $config->suggest;
-} else {
+if ($config->suggest < $fee) {
     $templatedata->suggest = $fee;
+} else {
+    $templatedata->suggest = $config->suggest;
 }
 $templatedata->maxcost = $config->maxcost;
 $templatedata->skipmode = $config->skipmode;
