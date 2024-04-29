@@ -183,9 +183,11 @@ $response = json_decode($jsonresponse);
 
 // file_put_contents("/tmp/xxxx", serialize($jsonresponse)."\n", FILE_APPEND);
 
-$confirmationurl = $response->result->link;
+if(!isset($response->result)){
+    redirect($url, get_string('payment_error', 'paygw_cryptocloud') . " (response error)", 0, 'error');
+}
 
-if (empty($confirmationurl)) {
+if (empty($response->result->link)) {
     $error = serialize($response->result);
     redirect($url, get_string('payment_error', 'paygw_cryptocloud') . " ($error)", 0, 'error');
 }
@@ -195,4 +197,4 @@ $data->id = $transactionid;
 $data->invoiceid = $response->result->uuid;
 $DB->update_record('paygw_cryptocloud', $data);
 
-redirect($confirmationurl);
+redirect($response->result->link);
