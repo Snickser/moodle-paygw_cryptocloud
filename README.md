@@ -6,6 +6,8 @@ v0.2
 
 https://cryptocloud.plus/
 
+![img](https://github.com/Snickser/moodle-paygw_cryptocloud/blob/main/pix/img.svg)
+
 INSTALLATION
 ------------
 Download the latest **paygw_cryptocloud.zip** and unzip the contents into the **/payment/gateway** directory. Or upload it from Moodle plugins adminnistration interface.
