@@ -115,7 +115,7 @@ if (!empty($password) || $skipmode) {
     if ($config->skipmode) {
         $success = true;
     } else if ($config->passwordmode && !empty($config->password)) {
-    // Check password
+        // Check password
         if ($password === $config->password) {
             $success = true;
         }
