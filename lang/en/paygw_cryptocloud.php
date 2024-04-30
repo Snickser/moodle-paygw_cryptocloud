@@ -23,7 +23,7 @@
  */
 $string['pluginname'] = 'CryptoCloud payment';
 $string['pluginname_desc'] = 'The cryptocloud plugin allows you to receive payments via cryptocloud.';
-$string['gatewaydescription'] = 'cryptocloud is an authorised payment gateway provider for processing credit card transactions.';
+$string['gatewaydescription'] = 'CryptoCloud — a reliable way to easily and conveniently accept payments from around the world in the most popular cryptocurrencies.';
 $string['gatewayname'] = 'CryptoCloud';
 $string['callback_url'] = 'Notification URL:';
 $string['callback_help'] = 'Copy this lines and paste it into the cryptocloud project settings. Switch off "My project on CMS".';
