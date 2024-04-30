@@ -53,7 +53,12 @@ class gateway extends \core_payment\gateway {
 
         $mform->addElement('text', 'apikey', get_string('apikey', 'paygw_cryptocloud'), ['size' => 48]);
         $mform->setType('apikey', PARAM_TEXT);
-
+/*
+        $mform->addElement('text', 'fixdesc', get_string('fixdesc', 'paygw_cryptocloud'), ['size' => 50]);
+        $mform->setType('fixdesc', PARAM_TEXT);
+        $mform->addRule('fixdesc', get_string('maximumchars', '', 255), 'maxlength', 255, 'client');
+        $mform->addHelpButton('fixdesc', 'fixdesc', 'paygw_cryptocloud');
+*/
         $mform->addElement('static');
 
         $mform->addElement(

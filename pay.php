@@ -183,7 +183,7 @@ $response = json_decode($jsonresponse);
 
 // file_put_contents("/tmp/xxxx", serialize($jsonresponse)."\n", FILE_APPEND);
 
-if(!isset($response->result)){
+if (!isset($response->result)) {
     redirect($url, get_string('payment_error', 'paygw_cryptocloud') . " (response error)", 0, 'error');
 }
 
