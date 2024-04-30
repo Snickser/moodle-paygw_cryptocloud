@@ -22,7 +22,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 $string['pluginname'] = 'CryptoCloud payment';
-$string['pluginname_desc'] = 'The cryptocloud plugin allows you to receive payments via cryptocloud.';
+$string['pluginname_desc'] = 'The cryptocloud plugin allows you to receive payments via CryptoCloud.';
 $string['gatewaydescription'] = 'CryptoCloud — a reliable way to easily and conveniently accept payments from around the world in the most popular cryptocurrencies.';
 $string['gatewayname'] = 'CryptoCloud';
 $string['callback_url'] = 'Notification URL:';
