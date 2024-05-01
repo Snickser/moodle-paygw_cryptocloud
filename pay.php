@@ -26,6 +26,7 @@
 use core_payment\helper;
 
 require_once(__DIR__ . '/../../../config.php');
+require_once($CFG->libdir . '/filelib.php');
 
 require_login();
 
@@ -164,22 +165,22 @@ $payment->add_fields = [
     ],
 ];
 
-$curlhandler = curl_init();
-curl_setopt($curlhandler, CURLOPT_HTTPHEADER, [
-    'Authorization: Token ' . $config->apikey,
-    'Accept: application/json',
-    'Content-Type: application/json',
-    ]);
-curl_setopt_array($curlhandler, [
-     CURLOPT_URL => 'https://api.cryptocloud.plus/v2/invoice/create?locale=' . current_language(),
-     CURLOPT_RETURNTRANSFER => true,
-]);
 $jsondata = json_encode($payment);
-curl_setopt($curlhandler, CURLOPT_POST, true);
-curl_setopt($curlhandler, CURLOPT_POSTFIELDS, $jsondata);
 
-$jsonresponse = curl_exec($curlhandler);
+$location = 'https://api.cryptocloud.plus/v2/invoice/create?locale=' . current_language();
+$options = [
+    'CURLOPT_RETURNTRANSFER' => true,
+    'CURLOPT_TIMEOUT' => 30,
+    'CURLOPT_HTTP_VERSION' => CURL_HTTP_VERSION_1_1,
+    'CURLOPT_SSLVERSION' => CURL_SSLVERSION_TLSv1_2,
+    'CURLOPT_HTTPHEADER' => [
+        'Content-Type: application/json',
+        'Authorization: Token ' . $config->apikey,
+    ],
+];
 
+$curl = new curl();
+$jsonresponse = $curl->post($location, $jsondata, $options);
 $response = json_decode($jsonresponse);
 
 if (!isset($response->result)) {
