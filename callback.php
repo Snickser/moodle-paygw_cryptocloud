@@ -41,13 +41,49 @@ $currency = $data['currency'] ?? null;
 $orderid = $data['order_id'] ?? null;
 $token = $data['token'] ?? null;
 
+
 if ($status !== 'success') {
     die('FAIL. Payment not successed');
 }
 
-if (!$cryptocloudtx = $DB->get_record('paygw_cryptocloud', [ 'id' => $orderid, 'invoiceid' => "INV-$invoiceid" ])) {
+if (!$cryptocloudtx = $DB->get_record('paygw_cryptocloud', [ 'id' => $orderid, 'invoiceid' => 'INV-' . $invoiceid ])) {
     die('FAIL. Not a valid transaction id');
 }
+
+
+
+
+$config = (object) helper::get_gateway_configuration($component, $paymentarea, $itemid, 'cryptocloud');
+
+
+// Get invoice data.
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, "https://api.cryptocloud.plus/v2/invoice/merchant/info");
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($ch, CURLOPT_POST, 1);
+curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode(array(
+    "uuids" => array($invoiceid)
+)));
+$headers = array(
+    "Authorization: Token <API KEY>",
+    "Content-Type: application/json"
+);
+curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+$response = curl_exec($ch);
+if (curl_errno($ch)) {
+    die('Error: ' . curl_error($ch));
+} else {
+    $statuscode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    if ($statuscode !== 200) {
+        die('FAIL: ' . $statuscode . " " . $response);
+    }
+}
+curl_close($ch);
+
+
+
+
+
 
 if (! $userid = $DB->get_record("user", ["id" => $cryptocloudtx->userid])) {
     die('FAIL. Not a valid user id.');
