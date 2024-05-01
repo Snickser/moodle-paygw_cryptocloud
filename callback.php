@@ -31,24 +31,19 @@ global $CFG, $USER, $DB;
 
 defined('MOODLE_INTERNAL') || die();
 
-$source = file_get_contents('php://input');
-
-$data = [];
-parse_str($source, $data);
-
-$status = $data['status'] ?? null;
-$invoiceid = $data['invoice_id'] ?? null;
-$amountcrypto = $data['amount_crypto'] ?? null;
-$currency = $data['currency'] ?? null;
-$orderid = $data['order_id'] ?? null;
-$token = $data['token'] ?? null;
+$status         = required_param('status', PARAM_TEXT);
+$invoiceid      = required_param('invoice_id', PARAM_TEXT);
+$amountcrypto   = required_param('amount_crypto', PARAM_TEXT);
+$currency       = required_param('currency', PARAM_TEXT);
+$orderid        = required_param('order_id', PARAM_INT);
+$token          = required_param('token', PARAM_TEXT);
 
 if ($status !== 'success') {
     die('FAIL. Payment not successed.');
 }
 
 if (!$cryptocloudtx = $DB->get_record('paygw_cryptocloud', [ 'id' => $orderid, 'invoiceid' => 'INV-' . $invoiceid ])) {
-    die('FAIL. Not a valid transaction id');
+    die('FAIL. Not a valid transaction.');
 }
 
 if (! $userid = $DB->get_record("user", ["id" => $cryptocloudtx->userid])) {
