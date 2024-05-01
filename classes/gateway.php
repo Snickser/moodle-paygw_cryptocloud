@@ -57,6 +57,9 @@ class gateway extends \core_payment\gateway {
         $mform->addElement('text', 'apikey', get_string('apikey', 'paygw_cryptocloud'), ['size' => 48]);
         $mform->setType('apikey', PARAM_TEXT);
 
+        $mform->addElement('text', 'secretkey', get_string('secretkey', 'paygw_cryptocloud'), ['size' => 48]);
+        $mform->setType('secretkey', PARAM_TEXT);
+
         $mform->addElement('static');
 
         $mform->addElement(
