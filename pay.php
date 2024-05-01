@@ -101,6 +101,7 @@ $paygwdata->currency = $currency;
 $paygwdata->date_created = date("Y-m-d H:i:s");
 $paygwdata->courseid = $courseid;
 $paygwdata->group_names = $groupnames;
+$paygwdata->timecreated = time();
 
 if (!$transactionid = $DB->insert_record('paygw_cryptocloud', $paygwdata)) {
     die(get_string('error_txdatabase', 'paygw_cryptocloud'));
