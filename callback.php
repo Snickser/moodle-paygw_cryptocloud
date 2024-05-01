@@ -68,13 +68,13 @@ $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, "https://api.cryptocloud.plus/v2/invoice/merchant/info");
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($ch, CURLOPT_POST, 1);
-curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode(array(
-    "uuids" => array($invoiceid)
-)));
-$headers = array(
+curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
+    "uuids" => [$invoiceid],
+]));
+$headers = [
     "Authorization: Token " . $config->apikey,
-    "Content-Type: application/json"
-);
+    "Content-Type: application/json",
+];
 curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 $jsonresponse = curl_exec($ch);
 if (curl_errno($ch)) {
@@ -95,10 +95,10 @@ $response = json_decode($jsonresponse, false);
 if ($response->status !== 'success') {
     die('FAIL. Invoice check not successed.');
 }
-if ($response->result[0]->invoice_status !== 'success'){
+if ($response->result[0]->invoice_status !== 'success') {
     die('FAIL. Invoice not successed.');
 }
-if ($response->result[0]->status !== 'paid'){
+if ($response->result[0]->status !== 'paid') {
     die('FAIL. Invoice not paid.');
 }
 
