@@ -23,6 +23,8 @@
  */
 
 use core_payment\helper;
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 
 require("../../../config.php");
 global $CFG, $USER, $DB;
@@ -34,6 +36,8 @@ $source = file_get_contents('php://input');
 $data = [];
 parse_str($source, $data);
 
+// file_put_contents("/tmp/yyyyy", serialize($data) . "\n", FILE_APPEND);
+
 $status = $data['status'] ?? null;
 $invoiceid = $data['invoice_id'] ?? null;
 $amountcrypto = $data['amount_crypto'] ?? null;
@@ -42,10 +46,10 @@ $orderid = $data['order_id'] ?? null;
 $token = $data['token'] ?? null;
 
 if ($status !== 'success') {
-    die('FAIL. Payment not successed');
+    die('FAIL. Payment not successed.');
 }
 
-if (!$cryptocloudtx = $DB->get_record('paygw_cryptocloud', [ 'id' => $orderid, 'invoiceid' => "INV-$invoiceid" ])) {
+if (!$cryptocloudtx = $DB->get_record('paygw_cryptocloud', [ 'id' => $orderid, 'invoiceid' => 'INV-' . $invoiceid ])) {
     die('FAIL. Not a valid transaction id');
 }
 
@@ -58,8 +62,16 @@ $paymentarea = $cryptocloudtx->paymentarea;
 $itemid      = $cryptocloudtx->itemid;
 $userid      = $cryptocloudtx->userid;
 
-// Get config.
+// Get secretkey.
 $config = (object) helper::get_gateway_configuration($component, $paymentarea, $itemid, 'cryptocloud');
+
+$decoded = JWT::decode($token, new Key($config->secretkey, 'HS256'));
+if (empty($decoded->id)) {
+    die('FAIL. Invalid token.');
+}
+
+// file_put_contents("/tmp/yyyyy", serialize($decoded) . "\n", FILE_APPEND);
+
 $payable = helper::get_payable($component, $paymentarea, $itemid);
 
 // Deliver course.

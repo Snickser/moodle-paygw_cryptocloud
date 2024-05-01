@@ -42,6 +42,7 @@ $string['passwordmode'] = 'Password';
 $string['password_help'] = 'Using this password you can bypass the payback process. It can be useful when it is not possible to make a payment.';
 $string['password_text'] = 'If you are unable to make a payment, then ask your curator for a password and enter it.';
 $string['apikey'] = 'API Key';
+$string['secretkey'] = 'Secret key';
 $string['shopid'] = 'ShopID';
 $string['istestmode'] = 'Test mode';
 $string['suggest'] = 'Suggested cost';
