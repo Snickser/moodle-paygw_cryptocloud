@@ -23,6 +23,8 @@
  */
 
 use core_payment\helper;
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 
 require("../../../config.php");
 global $CFG, $USER, $DB;
@@ -60,49 +62,16 @@ $paymentarea = $cryptocloudtx->paymentarea;
 $itemid      = $cryptocloudtx->itemid;
 $userid      = $cryptocloudtx->userid;
 
-// Get config apikey.
+// Get secretkey.
 $config = (object) helper::get_gateway_configuration($component, $paymentarea, $itemid, 'cryptocloud');
 
-// Get invoice data from cryptocloud.
-$ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, "https://api.cryptocloud.plus/v2/invoice/merchant/info");
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-curl_setopt($ch, CURLOPT_POST, 1);
-curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
-    "uuids" => [$invoiceid],
-]));
-$headers = [
-    "Authorization: Token " . $config->apikey,
-    "Content-Type: application/json",
-];
-curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-$jsonresponse = curl_exec($ch);
-if (curl_errno($ch)) {
-    die('Error: ' . curl_error($ch));
-} else {
-    $statuscode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    if ($statuscode !== 200) {
-        die('FAIL: ' . $statuscode . " " . $response);
-    }
-}
-curl_close($ch);
-
-$response = json_decode($jsonresponse, false);
-
-// file_put_contents("/tmp/yyyyy", serialize($response->result) . "\n", FILE_APPEND);
-
-// Check invoice status.
-if ($response->status !== 'success') {
-    die('FAIL. Invoice check not successed.');
-}
-if ($response->result[0]->invoice_status !== 'success') {
-    die('FAIL. Invoice not successed.');
-}
-if ($response->result[0]->status !== 'paid') {
-    die('FAIL. Invoice not paid.');
+$decoded = JWT::decode($token, new Key($config->secretkey, 'HS256'));
+if (empty($decoded->id)) {
+    die('FAIL. Invalid token.');
 }
 
-// Get config.
+// file_put_contents("/tmp/yyyyy", serialize($decoded) . "\n", FILE_APPEND);
+
 $payable = helper::get_payable($component, $paymentarea, $itemid);
 
 // Deliver course.
