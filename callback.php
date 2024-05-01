@@ -80,7 +80,6 @@ helper::deliver_order($component, $paymentarea, $itemid, $paymentid, $userid);
 
 // Write to DB.
 $cryptocloudtx->success = 1;
-$cryptocloudtx->timemodified = time();
 if (!$DB->update_record('paygw_cryptocloud', $cryptocloudtx)) {
     die('FAIL. Update db error.');
 } else {
