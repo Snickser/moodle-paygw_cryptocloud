@@ -52,17 +52,17 @@ $surcharge = helper::get_gateway_surcharge('cryptocloud');// In case user uses s
 // TODO: Check if currency is IDR. If not, then something went really wrong in config.
 $cost = helper::get_rounded_cost($payable->get_amount(), $payable->get_currency(), $surcharge);
 
-// Check self cost
+// Check self cost.
 if (!empty($costself)) {
     $cost = $costself;
 }
-// Check maxcost
+// Check maxcost.
 if ($config->maxcost && $cost > $config->maxcost) {
     $cost = $config->maxcost;
 }
 $cost = number_format($cost, 2, '.', '');
 
-// Get course and groups for user
+// Get course and groups for user.
 if ($component == "enrol_fee") {
     $cs = $DB->get_record('enrol', ['id' => $itemid]);
     $cs->course = $cs->courseid;
@@ -90,7 +90,7 @@ if (!empty($cs->course)) {
     $courseid = '';
 }
 
-// Write tx to db
+// Write tx to db.
 $paygwdata = new stdClass();
 $paygwdata->userid = $userid;
 $paygwdata->component = $component;
@@ -106,23 +106,23 @@ if (!$transactionid = $DB->insert_record('paygw_cryptocloud', $paygwdata)) {
     die(get_string('error_txdatabase', 'paygw_cryptocloud'));
 }
 
-// Build redirect
+// Build redirect.
 $url = helper::get_success_url($component, $paymentarea, $itemid);
 
-// Check passwordmode or skipmode
+// Check passwordmode or skipmode.
 if (!empty($password) || $skipmode) {
     $success = false;
     if ($config->skipmode) {
         $success = true;
     } else if ($config->passwordmode && !empty($config->password)) {
-        // Check password
+        // Check password.
         if ($password === $config->password) {
             $success = true;
         }
     }
 
     if ($success) {
-        // Make fake pay
+        // Make fake pay.
         $cost = 0;
         $paymentid = helper::save_payment(
             $payable->get_account_id(),
@@ -136,7 +136,7 @@ if (!empty($password) || $skipmode) {
         );
         helper::deliver_order($component, $paymentarea, $itemid, $paymentid, $userid);
 
-        // Write to DB
+        // Write to DB.
         $data = new stdClass();
         $data->id = $transactionid;
         $data->success = 2;
@@ -147,7 +147,7 @@ if (!empty($password) || $skipmode) {
     } else {
         redirect($url, get_string('password_error', 'paygw_cryptocloud'), 0, 'error');
     }
-    die; // Never
+    die; // Never.
 }
 
 $payment = new stdClass();
@@ -180,8 +180,6 @@ curl_setopt($curlhandler, CURLOPT_POSTFIELDS, $jsondata);
 $jsonresponse = curl_exec($curlhandler);
 
 $response = json_decode($jsonresponse);
-
-// file_put_contents("/tmp/xxxx", serialize($jsonresponse)."\n", FILE_APPEND);
 
 if (!isset($response->result)) {
     redirect($url, get_string('payment_error', 'paygw_cryptocloud') . " (response error)", 0, 'error');

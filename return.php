@@ -31,8 +31,6 @@ defined('MOODLE_INTERNAL') || die();
 
 require_login();
 
-// file_put_contents("/tmp/xxxx", serialize($_REQUEST)."\n", FILE_APPEND);
-
 $id = required_param('order_id', PARAM_INT);
 
 if (!$cryptocloudtx = $DB->get_record('paygw_cryptocloud', ['id' => $id])) {

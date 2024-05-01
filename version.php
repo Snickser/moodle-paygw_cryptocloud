@@ -24,8 +24,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version = 2024043001;
+$plugin->version = 20240500100;
 $plugin->requires = 2023100900;
 $plugin->component = 'paygw_cryptocloud';
-$plugin->release = '0.4';
+$plugin->release = '0.5';
 $plugin->maturity = MATURITY_STABLE;
