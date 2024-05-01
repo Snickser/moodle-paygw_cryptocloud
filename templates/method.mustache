@@ -48,13 +48,11 @@
 
 <p>{{# str }} paymore, paygw_cryptocloud {{/ str}}</p>
 
-            <h3>{{# str }} cost {{/ str}}:
-
-<input type="number" id="costself" name="costself" min="{{fee}}" {{#maxcost}}max="{{maxcost}}"{{/maxcost}}
+<h3>{{# str }} cost {{/ str}}:
+ <input type="number" id="costself" name="costself" min="{{fee}}" {{#maxcost}}max="{{maxcost}}"{{/maxcost}}
  value="{{#suggest}}{{suggest}}{{/suggest}}{{^suggest}}{{fee}}{{/suggest}}"
- size="7" step="0.01">
-
- {{currency}}</h3>
+ step="0.01" style="width: 5em;">&nbsp;{{currency}}
+</h3>
 
 {{#enrolperiod}}
 <h4>{{# str }} enrolperiod, enrol {{/ str}} ({{enrolperiod_desc}}): {{enrolperiod}}</h4>

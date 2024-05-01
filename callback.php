@@ -41,8 +41,6 @@ $currency = $data['currency'] ?? null;
 $orderid = $data['order_id'] ?? null;
 $token = $data['token'] ?? null;
 
-// file_put_contents("/tmp/yyyyy", serialize($data) . "\n", FILE_APPEND);
-
 if ($status !== 'success') {
     die('FAIL. Payment not successed');
 }
@@ -60,12 +58,11 @@ $paymentarea = $cryptocloudtx->paymentarea;
 $itemid      = $cryptocloudtx->itemid;
 $userid      = $cryptocloudtx->userid;
 
-// Get config
+// Get config.
 $config = (object) helper::get_gateway_configuration($component, $paymentarea, $itemid, 'cryptocloud');
 $payable = helper::get_payable($component, $paymentarea, $itemid);
 
-// Deliver course
-// $fee = helper::get_rounded_cost($payable->get_amount(), $payable->get_currency(), helper::get_gateway_surcharge('cryptocloud'));
+// Deliver course.
 $paymentid = helper::save_payment(
     $payable->get_account_id(),
     $component,
@@ -78,7 +75,7 @@ $paymentid = helper::save_payment(
 );
 helper::deliver_order($component, $paymentarea, $itemid, $paymentid, $userid);
 
-// Write to DB
+// Write to DB.
 $cryptocloudtx->success = 1;
 if (!$DB->update_record('paygw_cryptocloud', $cryptocloudtx)) {
     die('FAIL. Update db error.');
