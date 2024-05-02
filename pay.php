@@ -94,7 +94,7 @@ if (!empty($cs->course)) {
 // Write tx to db.
 $paygwdata = new stdClass();
 $paygwdata->courseid = $courseid;
-$paygwdata->group_names = $groupnames;
+$paygwdata->groupnames = $groupnames;
 if (!$transactionid = $DB->insert_record('paygw_cryptocloud', $paygwdata)) {
     die(get_string('error_txdatabase', 'paygw_cryptocloud'));
 }
