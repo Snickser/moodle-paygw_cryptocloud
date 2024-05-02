@@ -35,17 +35,14 @@ use core_privacy\local\request\writer;
  * @copyright  2024 Alex Orlov <snicker@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class provider implements
-    \core_privacy\local\metadata\provider,
-    \core_privacy\local\request\data_provider,
-    paygw_provider {
+class provider implements \core_privacy\local\request\data_provider, paygw_provider, \core_privacy\local\metadata\provider {
     /**
      * Returns meta data about this system.
      *
      * @param collection $collection The initialised collection to add items to.
      * @return collection A listing of user data stored through this system.
      */
-    public static function get_metadata(collection $collection) : collection {
+    public static function get_metadata(collection $collection): collection {
 
         // Data may be exported to an external location.
         $collection->add_external_location_link(
@@ -53,7 +50,7 @@ class provider implements
             [
                 'shopid'   => 'privacy:metadata:paygw_cryptocloud:shopid',
                 'apikey'   => 'privacy:metadata:paygw_cryptocloud:apikey',
-                'email'    => 'privacy:metadata:paygw_cryptocloud:email'
+                'email'    => 'privacy:metadata:paygw_cryptocloud:email',
             ],
             'privacy:metadata:paygw_cryptocloud:cryptocloud_plus'
         );
@@ -65,7 +62,7 @@ class provider implements
                 'invoiceid'  => 'privacy:metadata:paygw_cryptocloud:invoiceid',
                 'courceid'   => 'privacy:metadata:paygw_cryptocloud:courceid',
                 'groupnames' => 'privacy:metadata:paygw_cryptocloud:groupnames',
-                'success'    => 'privacy:metadata:paygw_cryptocloud:success'
+                'success'    => 'privacy:metadata:paygw_cryptocloud:success',
             ],
             'privacy:metadata:paygw_cryptocloud:paygw_cryptocloud'
         );
