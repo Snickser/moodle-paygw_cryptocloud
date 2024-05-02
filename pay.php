@@ -93,19 +93,12 @@ if (!empty($cs->course)) {
 
 // Write tx to db.
 $paygwdata = new stdClass();
-$paygwdata->userid = $userid;
-$paygwdata->component = $component;
-$paygwdata->paymentarea = $paymentarea;
-$paygwdata->itemid = $itemid;
-$paygwdata->cost = $cost;
-$paygwdata->currency = $currency;
 $paygwdata->courseid = $courseid;
-$paygwdata->date_created = date("Y-m-d H:i:s");
-$paygwdata->group_names = $groupnames;
-
+$paygwdata->groupnames = $groupnames;
 if (!$transactionid = $DB->insert_record('paygw_cryptocloud', $paygwdata)) {
     die(get_string('error_txdatabase', 'paygw_cryptocloud'));
 }
+$paygwdata->id = $transactionid;
 
 // Build redirect.
 $url = helper::get_success_url($component, $paymentarea, $itemid);
@@ -124,25 +117,23 @@ if (!empty($password) || $skipmode) {
 
     if ($success) {
         // Make fake pay.
-        $cost = 0;
         $paymentid = helper::save_payment(
             $payable->get_account_id(),
             $component,
             $paymentarea,
             $itemid,
             $userid,
-            $cost,
+            0,
             $payable->get_currency(),
             'cryptocloud'
         );
+
         helper::deliver_order($component, $paymentarea, $itemid, $paymentid, $userid);
 
         // Write to DB.
-        $data = new stdClass();
-        $data->id = $transactionid;
-        $data->success = 2;
-        $data->cost = 0;
-        $DB->update_record('paygw_cryptocloud', $data);
+        $paygwdata->success = 2;
+        $paygwdata->paymentid = $paymentid;
+        $DB->update_record('paygw_cryptocloud', $paygwdata);
 
         redirect($url, get_string('password_success', 'paygw_cryptocloud'), 0, 'success');
     } else {
@@ -151,11 +142,24 @@ if (!empty($password) || $skipmode) {
     die; // Never.
 }
 
+// Save payment.
+$paymentid = helper::save_payment(
+    $payable->get_account_id(),
+    $component,
+    $paymentarea,
+    $itemid,
+    $userid,
+    $cost,
+    $payable->get_currency(),
+    'cryptocloud'
+);
+
+// Make invoice.
 $payment = new stdClass();
 $payment->shop_id = $config->shopid;
 $payment->amount = $cost;
 $payment->currency = $currency;
-$payment->order_id = $transactionid;
+$payment->order_id = $paymentid;
 $payment->email = $USER->email;
 $payment->add_fields = [
     'time_to_pay' => [
@@ -170,8 +174,6 @@ $location = 'https://api.cryptocloud.plus/v2/invoice/create?locale=' . current_l
 $options = [
     'CURLOPT_RETURNTRANSFER' => true,
     'CURLOPT_TIMEOUT' => 30,
-    'CURLOPT_HTTP_VERSION' => CURL_HTTP_VERSION_1_1,
-    'CURLOPT_SSLVERSION' => CURL_SSLVERSION_TLSv1_2,
     'CURLOPT_HTTPHEADER' => [
         'Content-Type: application/json',
         'Authorization: Token ' . $config->apikey,
@@ -191,9 +193,9 @@ if (empty($response->result->link)) {
     redirect($url, get_string('payment_error', 'paygw_cryptocloud') . " ($error)", 0, 'error');
 }
 
-$data = new stdClass();
-$data->id = $transactionid;
-$data->invoiceid = $response->result->uuid;
-$DB->update_record('paygw_cryptocloud', $data);
+// Write to DB.
+$paygwdata->paymentid = $paymentid;
+$paygwdata->invoiceid = $response->result->uuid;
+$DB->update_record('paygw_cryptocloud', $paygwdata);
 
 redirect($response->result->link);

@@ -57,4 +57,14 @@ $string['usedetails'] = 'Make it collapsible';
 $string['usedetails_help'] = 'Display a button or password in a collapsed block.';
 $string['usedetails_text'] = 'Click here if you are unable to donate.';
 $string['internalerror'] = 'An internal error has occurred. Please contact us.';
-$string['privacy:metadata'] = 'The cryptocloud plugin does not store any personal data.';
+
+$string['privacy:metadata'] = 'The cryptocloud plugin store some personal data.';
+$string['privacy:metadata:paygw_cryptocloud:paygw_cryptocloud'] = 'Store some data';
+$string['privacy:metadata:paygw_cryptocloud:shopid'] = 'Shopid';
+$string['privacy:metadata:paygw_cryptocloud:apikey'] = 'ApiKey';
+$string['privacy:metadata:paygw_cryptocloud:email'] = 'Email';
+$string['privacy:metadata:paygw_cryptocloud:cryptocloud_plus'] = 'Send json data';
+$string['privacy:metadata:paygw_cryptocloud:invoiceid'] = 'Invoice id';
+$string['privacy:metadata:paygw_cryptocloud:courceid'] = 'Cource id';
+$string['privacy:metadata:paygw_cryptocloud:groupnames'] = 'Group names';
+$string['privacy:metadata:paygw_cryptocloud:success'] = 'Status';

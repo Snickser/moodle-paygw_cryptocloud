@@ -25,7 +25,7 @@
 use core_payment\helper;
 
 require("../../../config.php");
-global $CFG, $USER, $DB;
+global $CFG, $DB;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -33,15 +33,20 @@ require_login();
 
 $id = required_param('order_id', PARAM_INT);
 
-if (!$cryptocloudtx = $DB->get_record('paygw_cryptocloud', ['id' => $id])) {
+if (!$cryptocloudtx = $DB->get_record('paygw_cryptocloud', ['paymentid' => $id])) {
     die('FAIL. Not a valid transaction id');
 }
 
-$paymentarea = $cryptocloudtx->paymentarea;
-$component   = $cryptocloudtx->component;
-$itemid      = $cryptocloudtx->itemid;
+if (!$payment = $DB->get_record('payments', ['id' => $cryptocloudtx->paymentid])) {
+    die('FAIL. Not a valid payment.');
+}
+
+$paymentarea = $payment->paymentarea;
+$component   = $payment->component;
+$itemid      = $payment->itemid;
 
 $url = helper::get_success_url($component, $paymentarea, $itemid);
+
 if ($cryptocloudtx->success) {
     redirect($url, get_string('payment_success', 'paygw_cryptocloud'), 0, 'success');
 } else {
