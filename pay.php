@@ -174,8 +174,6 @@ $location = 'https://api.cryptocloud.plus/v2/invoice/create?locale=' . current_l
 $options = [
     'CURLOPT_RETURNTRANSFER' => true,
     'CURLOPT_TIMEOUT' => 30,
-// 'CURLOPT_HTTP_VERSION' => CURL_HTTP_VERSION_1_1,
-// 'CURLOPT_SSLVERSION' => CURL_SSLVERSION_TLSv1_2,
     'CURLOPT_HTTPHEADER' => [
         'Content-Type: application/json',
         'Authorization: Token ' . $config->apikey,
