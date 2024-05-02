@@ -42,18 +42,18 @@ if ($status !== 'success') {
     die('FAIL. Payment not successed.');
 }
 
-if (!$cryptocloudtx = $DB->get_record('paygw_cryptocloud', [ 'id' => $orderid, 'invoiceid' => 'INV-' . $invoiceid ])) {
+if (!$cryptocloudtx = $DB->get_record('paygw_cryptocloud', [ 'paymentid' => $orderid, 'invoiceid' => 'INV-' . $invoiceid ])) {
     die('FAIL. Not a valid transaction.');
 }
 
-if (! $userid = $DB->get_record("user", ["id" => $cryptocloudtx->userid])) {
-    die('FAIL. Not a valid user id.');
+if (!$payment = $DB->get_record('payments', ['id' => $cryptocloudtx->paymentid])) {
+    die('FAIL. Not a valid payment.');
 }
-
-$component   = $cryptocloudtx->component;
-$paymentarea = $cryptocloudtx->paymentarea;
-$itemid      = $cryptocloudtx->itemid;
-$userid      = $cryptocloudtx->userid;
+$component   = $payment->component;
+$paymentarea = $payment->paymentarea;
+$itemid      = $payment->itemid;
+$paymentid   = $payment->id;
+$userid      = $payment->userid;
 
 // Get secretkey.
 $config = (object) helper::get_gateway_configuration($component, $paymentarea, $itemid, 'cryptocloud');
@@ -63,19 +63,6 @@ if (empty($decoded->id)) {
     die('FAIL. Invalid token.');
 }
 
-$payable = helper::get_payable($component, $paymentarea, $itemid);
-
-// Deliver course.
-$paymentid = helper::save_payment(
-    $payable->get_account_id(),
-    $component,
-    $paymentarea,
-    $itemid,
-    $userid,
-    $cryptocloudtx->cost,
-    $payable->get_currency(),
-    'cryptocloud'
-);
 helper::deliver_order($component, $paymentarea, $itemid, $paymentid, $userid);
 
 // Write to DB.
