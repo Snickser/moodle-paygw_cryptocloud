@@ -17,15 +17,15 @@
 /**
  * Plugin version and other meta-data are defined here.
  *
- * @package     paygw_yookassa
+ * @package     paygw_cryptocloud
  * @copyright   2024 Alex Orlov <snickser@gmail.com>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version = 2024050200;
+$plugin->version = 2024050201;
 $plugin->requires = 2022112800;
-$plugin->component = 'paygw_yookassa';
+$plugin->component = 'paygw_cryptocloud';
 $plugin->release = '0.6';
 $plugin->maturity = MATURITY_STABLE;
