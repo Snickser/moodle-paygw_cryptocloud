@@ -32,13 +32,12 @@ global $CFG, $USER, $DB;
 defined('MOODLE_INTERNAL') || die();
 
 require_login();
+require_sesskey();
 
 $component   = required_param('component', PARAM_ALPHANUMEXT);
 $paymentarea = required_param('paymentarea', PARAM_ALPHANUMEXT);
 $itemid      = required_param('itemid', PARAM_INT);
 $description = required_param('description', PARAM_TEXT);
-
-$description = json_decode("\"$description\"");
 
 $params = [
     'component'   => $component,
@@ -111,11 +110,13 @@ if ($config->showduration) {
 }
 
 $templatedata->passwordmode = $config->passwordmode;
+
 if ($config->suggest < $fee) {
     $templatedata->suggest = $fee;
 } else {
     $templatedata->suggest = $config->suggest;
 }
+
 $templatedata->maxcost = $config->maxcost;
 $templatedata->skipmode = $config->skipmode;
 
