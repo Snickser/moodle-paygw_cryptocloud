@@ -43,8 +43,7 @@ $password    = optional_param('password', null, PARAM_TEXT);
 $skipmode    = optional_param('skipmode', 0, PARAM_INT);
 $costself    = optional_param('costself', null, PARAM_TEXT);
 
-$description = json_decode("\"$description\"");
-
+$description = json_decode('"' . $description . '"');
 
 $config = (object) helper::get_gateway_configuration($component, $paymentarea, $itemid, 'cryptocloud');
 $payable = helper::get_payable($component, $paymentarea, $itemid);// Get currency and payment amount.
