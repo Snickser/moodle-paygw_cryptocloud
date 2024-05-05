@@ -39,6 +39,8 @@ $paymentarea = required_param('paymentarea', PARAM_ALPHANUMEXT);
 $itemid      = required_param('itemid', PARAM_INT);
 $description = required_param('description', PARAM_TEXT);
 
+$description = json_decode('"' . $description . '"');
+
 $params = [
     'component'   => $component,
     'paymentarea' => $paymentarea,

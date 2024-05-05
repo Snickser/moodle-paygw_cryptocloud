@@ -75,7 +75,7 @@ $options = [
         'Authorization: Token ' . $config->apikey,
     ],
 ];
-$jsondata = json_encode(["uuids" => array($invoiceid)]);
+$jsondata = json_encode(["uuids" => [$invoiceid]]);
 
 $curl = new curl();
 $jsonresponse = $curl->post($location, $jsondata, $options);
@@ -85,10 +85,10 @@ $response = json_decode($jsonresponse, false);
 if ($response->status !== 'success') {
     die('FAIL. Invoice check not successed.');
 }
-if ($response->result[0]->invoice_status !== 'success'){
+if ($response->result[0]->invoice_status !== 'success') {
     die('FAIL. Invoice not successed.');
 }
-if ($response->result[0]->status !== 'paid'){
+if ($response->result[0]->status !== 'paid') {
     die('FAIL. Invoice not paid.');
 }
 
