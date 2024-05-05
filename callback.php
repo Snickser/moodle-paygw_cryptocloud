@@ -29,6 +29,8 @@ use Firebase\JWT\Key;
 require("../../../config.php");
 global $CFG, $USER, $DB;
 
+require_once($CFG->libdir . '/filelib.php');
+
 defined('MOODLE_INTERNAL') || die();
 
 $status         = required_param('status', PARAM_TEXT);
@@ -55,12 +57,39 @@ $itemid      = $payment->itemid;
 $paymentid   = $payment->id;
 $userid      = $payment->userid;
 
-// Get secretkey.
+// Get apikey and secretkey.
 $config = (object) helper::get_gateway_configuration($component, $paymentarea, $itemid, 'cryptocloud');
 
 $decoded = JWT::decode($token, new Key($config->secretkey, 'HS256'));
 if (empty($decoded->id)) {
     die('FAIL. Invalid token.');
+}
+
+// Check invoice on site.
+$location = 'https://api.cryptocloud.plus/v2/invoice/merchant/info';
+$options = [
+    'CURLOPT_RETURNTRANSFER' => true,
+    'CURLOPT_TIMEOUT' => 30,
+    'CURLOPT_HTTPHEADER' => [
+        'Content-Type: application/json',
+        'Authorization: Token ' . $config->apikey,
+    ],
+];
+$jsondata = json_encode(["uuids" => array($invoiceid)]);
+
+$curl = new curl();
+$jsonresponse = $curl->post($location, $jsondata, $options);
+$response = json_decode($jsonresponse, false);
+
+// Check invoice status.
+if ($response->status !== 'success') {
+    die('FAIL. Invoice check not successed.');
+}
+if ($response->result[0]->invoice_status !== 'success'){
+    die('FAIL. Invoice not successed.');
+}
+if ($response->result[0]->status !== 'paid'){
+    die('FAIL. Invoice not paid.');
 }
 
 helper::deliver_order($component, $paymentarea, $itemid, $paymentid, $userid);

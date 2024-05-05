@@ -26,11 +26,11 @@
 use core_payment\helper;
 
 require_once(__DIR__ . '/../../../config.php');
+global $CFG, $USER, $DB;
+
 require_once($CFG->libdir . '/filelib.php');
 
 require_login();
-
-global $CFG, $USER, $DB;
 
 $userid = $USER->id;
 
@@ -43,7 +43,8 @@ $password    = optional_param('password', null, PARAM_TEXT);
 $skipmode    = optional_param('skipmode', 0, PARAM_INT);
 $costself    = optional_param('costself', null, PARAM_TEXT);
 
-$description = json_decode('"' . $description . '"');
+$description = json_decode("\"$description\"");
+
 
 $config = (object) helper::get_gateway_configuration($component, $paymentarea, $itemid, 'cryptocloud');
 $payable = helper::get_payable($component, $paymentarea, $itemid);// Get currency and payment amount.
@@ -162,8 +163,8 @@ $payment->order_id = $paymentid;
 $payment->email = $USER->email;
 $payment->add_fields = [
     'time_to_pay' => [
-       'hours' => 0,
-       'minutes' => 10,
+       'hours' => 1,
+       'minutes' => 0,
     ],
 ];
 
