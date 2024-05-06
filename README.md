@@ -2,7 +2,7 @@
 
 # CryptoCloud payment gateway plugin for Moodle.
 
-v0.8
+v0.9
 
 https://cryptocloud.plus/
 
