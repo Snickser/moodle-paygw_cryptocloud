@@ -1,12 +1,17 @@
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/snickser) support me with a donation.
 
-# CryptoCloud payment gateway plugin for Moodle.
+## CryptoCloud payment gateway plugin for Moodle.
 
 v0.9
 
 https://cryptocloud.plus/
 
 ![img](https://github.com/Snickser/moodle-paygw_cryptocloud/blob/main/pix/img.svg)
+
+## Status
+
+[![Build Status](https://github.com/Snickser/moodle-paygw_cryptocloud/actions/workflows/moodle-ci.yml/badge.svg)](https://github.com/Snickser/moodle-paygw_cryptocloud/actions)
+
 
 INSTALLATION
 ------------
