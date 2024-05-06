@@ -34,7 +34,7 @@ require_once($CFG->libdir . '/filelib.php');
 defined('MOODLE_INTERNAL') || die();
 
 $status         = required_param('status', PARAM_TEXT);
-$invoiceid      = required_param('invoice_id', PARAM_TEXT);
+$invoiceid      = required_param('invoice_id', PARAM_ALPHANUMEXT);
 $amountcrypto   = required_param('amount_crypto', PARAM_TEXT);
 $currency       = required_param('currency', PARAM_TEXT);
 $orderid        = required_param('order_id', PARAM_INT);
@@ -92,6 +92,7 @@ if ($response->result[0]->status !== 'paid') {
     die('FAIL. Invoice not paid.');
 }
 
+// Deliver order.
 helper::deliver_order($component, $paymentarea, $itemid, $paymentid, $userid);
 
 // Write to DB.
