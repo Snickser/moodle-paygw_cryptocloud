@@ -96,7 +96,11 @@ if ($response->result[0]->status !== 'paid') {
 helper::deliver_order($component, $paymentarea, $itemid, $paymentid, $userid);
 
 // Write to DB.
-$cryptocloudtx->success = 1;
+if ($response->result[0]->test_mode == true) {
+    $cryptocloudtx->success = 3;
+} else {
+    $cryptocloudtx->success = 1;
+}
 if (!$DB->update_record('paygw_cryptocloud', $cryptocloudtx)) {
     die('FAIL. Update db error.');
 } else {
