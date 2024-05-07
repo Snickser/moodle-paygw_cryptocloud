@@ -33,7 +33,7 @@ require_once($CFG->libdir . '/filelib.php');
 
 defined('MOODLE_INTERNAL') || die();
 
-$status         = required_param('status', PARAM_TEXT);
+$status         = required_param('status', PARAM_ALPHA);
 $invoiceid      = required_param('invoice_id', PARAM_ALPHANUMEXT);
 $amountcrypto   = required_param('amount_crypto', PARAM_TEXT);
 $currency       = required_param('currency', PARAM_TEXT);
