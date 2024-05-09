@@ -35,7 +35,7 @@ require_once($CFG->libdir . '/filelib.php');
 defined('MOODLE_INTERNAL') || die();
 
 $status         = required_param('status', PARAM_TEXT);
-$invoiceid      = required_param('invoice_id', PARAM_TEXT);
+$invoiceid      = required_param('invoice_id', PARAM_ALPHANUMEXT);
 $amountcrypto   = required_param('amount_crypto', PARAM_TEXT);
 $currency       = required_param('currency', PARAM_TEXT);
 $orderid        = required_param('order_id', PARAM_INT);
@@ -105,7 +105,11 @@ notifications::notify(
 );
 
 // Write to DB.
-$cryptocloudtx->success = 1;
+if ($response->result[0]->test_mode == true) {
+    $cryptocloudtx->success = 3;
+} else {
+    $cryptocloudtx->success = 1;
+}
 if (!$DB->update_record('paygw_cryptocloud', $cryptocloudtx)) {
     die('FAIL. Update db error.');
 } else {
