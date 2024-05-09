@@ -23,6 +23,7 @@
  */
 
 use core_payment\helper;
+use paygw_cryptocloud\notifications;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
@@ -94,6 +95,15 @@ if ($response->result[0]->status !== 'paid') {
 
 // Deliver order.
 helper::deliver_order($component, $paymentarea, $itemid, $paymentid, $userid);
+
+// Notify user.
+notifications::notify(
+    $userid,
+    $payment->amount,
+    $payment->currency,
+    $paymentid,
+    'Success completed'
+);
 
 // Write to DB.
 if ($response->result[0]->test_mode == true) {

@@ -2,7 +2,7 @@
 
 ## CryptoCloud payment gateway plugin for Moodle.
 
-v0.9
+v0.10
 
 https://cryptocloud.plus/
 
@@ -12,8 +12,8 @@ https://cryptocloud.plus/
 
 [![Build Status](https://github.com/Snickser/moodle-paygw_cryptocloud/actions/workflows/moodle-ci.yml/badge.svg)](https://github.com/Snickser/moodle-paygw_cryptocloud/actions/workflows/moodle-ci.yml)
 
-
 ## INSTALLATION
+
 Download the latest **paygw_cryptocloud.zip** and unzip the contents into the **/payment/gateway** directory. Or upload it from Moodle plugins adminnistration interface.
 
 1. Install the plugin
