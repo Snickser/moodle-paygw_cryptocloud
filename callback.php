@@ -93,6 +93,7 @@ if ($response->result[0]->status !== 'paid') {
     die('FAIL. Invoice not paid.');
 }
 
+// Deliver order.
 helper::deliver_order($component, $paymentarea, $itemid, $paymentid, $userid);
 
 // Notify user.
