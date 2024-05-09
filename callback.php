@@ -23,6 +23,7 @@
  */
 
 use core_payment\helper;
+use paygw_cryptocloud\notifications;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
@@ -33,8 +34,8 @@ require_once($CFG->libdir . '/filelib.php');
 
 defined('MOODLE_INTERNAL') || die();
 
-$status         = required_param('status', PARAM_ALPHA);
-$invoiceid      = required_param('invoice_id', PARAM_ALPHANUMEXT);
+$status         = required_param('status', PARAM_TEXT);
+$invoiceid      = required_param('invoice_id', PARAM_TEXT);
 $amountcrypto   = required_param('amount_crypto', PARAM_TEXT);
 $currency       = required_param('currency', PARAM_TEXT);
 $orderid        = required_param('order_id', PARAM_INT);
@@ -92,15 +93,19 @@ if ($response->result[0]->status !== 'paid') {
     die('FAIL. Invoice not paid.');
 }
 
-// Deliver order.
 helper::deliver_order($component, $paymentarea, $itemid, $paymentid, $userid);
 
+// Notify user.
+notifications::notify(
+    $userid,
+    $payment->amount,
+    $payment->currency,
+    $paymentid,
+    'Success completed'
+);
+
 // Write to DB.
-if ($response->result[0]->test_mode == true) {
-    $cryptocloudtx->success = 3;
-} else {
-    $cryptocloudtx->success = 1;
-}
+$cryptocloudtx->success = 1;
 if (!$DB->update_record('paygw_cryptocloud', $cryptocloudtx)) {
     die('FAIL. Update db error.');
 } else {
