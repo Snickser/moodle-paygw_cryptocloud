@@ -105,6 +105,7 @@ $templatedata->paymentarea = $paymentarea;
 $templatedata->itemid      = $itemid;
 $templatedata->fee         = $fee;
 $templatedata->currency    = $currency;
+$templatedata->sesskey     = sesskey();
 
 if ($config->showduration) {
     $templatedata->enrolperiod = $enrolperiod;

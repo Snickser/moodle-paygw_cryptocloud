@@ -31,6 +31,7 @@ global $CFG, $USER, $DB;
 require_once($CFG->libdir . '/filelib.php');
 
 require_login();
+require_sesskey();
 
 $userid = $USER->id;
 
