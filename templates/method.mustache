@@ -25,6 +25,7 @@
     Example context (json):
     {
         "image": "http://url",
+        "sesskey": "abcd",
         "fee": "10.05",
         "currency": "RUB",
         "description": "for enrolment in course",
@@ -58,12 +59,13 @@
 <h4>{{# str }} enrolperiod, enrol {{/ str}} ({{enrolperiod_desc}}): {{enrolperiod}}</h4>
 {{/enrolperiod}}
 
+<br>
 <img src="{{{image}}}" alt="cryptocloud" height="40">
 
         </div>
     </div>
 
-<br>
+<br><br>
 
 
 <div style="text-align: center;">
@@ -102,6 +104,7 @@
         <input type="hidden" class="hidden-inputs" id="paymentarea" name="paymentarea" value="{{paymentarea}}">
         <input type="hidden" class="hidden-inputs" id="itemid" name="itemid" value="{{itemid}}">
         <input type="hidden" class="hidden-inputs" id="description" name="description" value="{{{description}}}">
+        <input type="hidden" class="hidden-inputs" id="sesskey" name="sesskey" value="{{sesskey}}">
     </div>
 
 </form>

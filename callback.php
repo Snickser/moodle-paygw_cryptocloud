@@ -36,7 +36,7 @@ defined('MOODLE_INTERNAL') || die();
 
 $status         = required_param('status', PARAM_TEXT);
 $invoiceid      = required_param('invoice_id', PARAM_ALPHANUMEXT);
-$amountcrypto   = required_param('amount_crypto', PARAM_TEXT);
+$amount         = required_param('amount_crypto', PARAM_FLOAT);
 $currency       = required_param('currency', PARAM_TEXT);
 $orderid        = required_param('order_id', PARAM_INT);
 $token          = required_param('token', PARAM_TEXT);
@@ -93,6 +93,10 @@ if ($response->result[0]->status !== 'paid') {
     die('FAIL. Invoice not paid.');
 }
 
+// Update payment.
+$payment->amount = $amount;
+$DB->update_record('payments', $payment);
+
 // Deliver order.
 helper::deliver_order($component, $paymentarea, $itemid, $paymentid, $userid);
 
@@ -105,7 +109,7 @@ notifications::notify(
     'Success completed'
 );
 
-// Write to DB.
+// Update paygw.
 if ($response->result[0]->test_mode == true) {
     $cryptocloudtx->success = 3;
 } else {
