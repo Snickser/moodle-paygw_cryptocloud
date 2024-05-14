@@ -109,7 +109,7 @@ notifications::notify(
     'Success completed'
 );
 
-// Write to DB.
+// Update paygw.
 if ($response->result[0]->test_mode == true) {
     $cryptocloudtx->success = 3;
 } else {
