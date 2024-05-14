@@ -36,7 +36,7 @@ defined('MOODLE_INTERNAL') || die();
 
 $status         = required_param('status', PARAM_TEXT);
 $invoiceid      = required_param('invoice_id', PARAM_ALPHANUMEXT);
-$amount         = required_param('amount_crypto', PARAM_TEXT);
+$amount         = required_param('amount_crypto', PARAM_FLOAT);
 $currency       = required_param('currency', PARAM_TEXT);
 $orderid        = required_param('order_id', PARAM_INT);
 $token          = required_param('token', PARAM_TEXT);
