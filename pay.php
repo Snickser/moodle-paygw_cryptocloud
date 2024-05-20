@@ -166,6 +166,7 @@ $payment->add_fields = [
        'hours' => 1,
        'minutes' => 0,
     ],
+    'available_currencies' => $config->cryptocurrency,
 ];
 
 $jsondata = json_encode($payment);
