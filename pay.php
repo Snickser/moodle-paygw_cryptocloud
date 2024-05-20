@@ -55,10 +55,12 @@ $cost = helper::get_rounded_cost($payable->get_amount(), $payable->get_currency(
 if (!empty($costself)) {
     $cost = $costself;
 }
+
 // Check maxcost.
 if ($config->maxcost && $cost > $config->maxcost) {
     $cost = $config->maxcost;
 }
+
 $cost = number_format($cost, 2, '.', '');
 
 // Get course and groups for user.
@@ -94,7 +96,7 @@ $paygwdata = new stdClass();
 $paygwdata->courseid = $courseid;
 $paygwdata->groupnames = $groupnames;
 if (!$transactionid = $DB->insert_record('paygw_cryptocloud', $paygwdata)) {
-    die(get_string('error_txdatabase', 'paygw_cryptocloud'));
+    throw new Error(get_string('error_txdatabase', 'paygw_cryptocloud'));
 }
 $paygwdata->id = $transactionid;
 
@@ -147,7 +149,7 @@ $paymentid = helper::save_payment(
     $paymentarea,
     $itemid,
     $userid,
-    0,
+    $cost,
     $payable->get_currency(),
     'cryptocloud'
 );
@@ -183,12 +185,14 @@ $jsonresponse = $curl->post($location, $jsondata, $options);
 $response = json_decode($jsonresponse);
 
 if (!isset($response->result)) {
-    redirect($url, get_string('payment_error', 'paygw_cryptocloud') . " (response error)", 0, 'error');
+    $DB->delete_records('paygw_cryptocloud', ['id' => $transactionid]);
+    throw new Error(get_string('payment_error', 'paygw_cryptocloud') . " (response error)");
 }
 
 if (empty($response->result->link)) {
+    $DB->delete_records('paygw_cryptocloud', ['id' => $transactionid]);
     $error = serialize($response->result);
-    redirect($url, get_string('payment_error', 'paygw_cryptocloud') . " ($error)", 0, 'error');
+    throw new Error(get_string('payment_error', 'paygw_cryptocloud') . " ($error)");
 }
 
 // Write to DB.
