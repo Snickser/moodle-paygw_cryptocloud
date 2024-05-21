@@ -60,6 +60,27 @@ class gateway extends \core_payment\gateway {
         $mform->addElement('text', 'secretkey', get_string('secretkey', 'paygw_cryptocloud'), ['size' => 48]);
         $mform->setType('secretkey', PARAM_TEXT);
 
+        $options = [
+            'USDT_TRC20' => 'USDT_TRC20',
+            'USDC_TRC20' => 'USDC_TRC20',
+            'TUSD_TRC20' => 'TUSD_TRC20',
+            'USDT_ERC20' => 'USDT_ERC20',
+            'USDC_ERC20' => 'USDC_ERC20',
+            'TUSD_ERC20' => 'TUSD_ERC20',
+            'BTC' => 'BTC',
+            'LTC' => 'LTC',
+            'ETH' => 'ETH',
+            ];
+        $select = $mform->addElement(
+            'select',
+            'cryptocurrency',
+            get_string('cryptocurrency', 'paygw_cryptocloud'),
+            $options,
+            ['size' => 9]
+        );
+        $select->setMultiple(true);
+        $mform->setDefault('cryptocurrency', 'USDT_TRC20');
+
         $mform->addElement('static');
 
         $mform->addElement(

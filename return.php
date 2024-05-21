@@ -34,11 +34,11 @@ require_login();
 $id = required_param('order_id', PARAM_INT);
 
 if (!$cryptocloudtx = $DB->get_record('paygw_cryptocloud', ['paymentid' => $id])) {
-    die('FAIL. Not a valid transaction id');
+    throw new Error('FAIL. Not a valid transaction id');
 }
 
 if (!$payment = $DB->get_record('payments', ['id' => $cryptocloudtx->paymentid])) {
-    die('FAIL. Not a valid payment.');
+    throw new Error('FAIL. Not a valid payment.');
 }
 
 $paymentarea = $payment->paymentarea;

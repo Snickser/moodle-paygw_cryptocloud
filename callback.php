@@ -41,6 +41,7 @@ $currency       = required_param('currency', PARAM_TEXT);
 $orderid        = required_param('order_id', PARAM_INT);
 $token          = required_param('token', PARAM_TEXT);
 
+
 if ($status !== 'success') {
     die('FAIL. Payment not successed.');
 }
@@ -92,10 +93,6 @@ if ($response->result[0]->invoice_status !== 'success') {
 if ($response->result[0]->status !== 'paid') {
     die('FAIL. Invoice not paid.');
 }
-
-// Update payment.
-$payment->amount = $amount;
-$DB->update_record('payments', $payment);
 
 // Deliver order.
 helper::deliver_order($component, $paymentarea, $itemid, $paymentid, $userid);
