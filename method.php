@@ -113,16 +113,20 @@ if ($config->showduration) {
 }
 
 $templatedata->passwordmode = $config->passwordmode;
+$templatedata->maxcost = $config->maxcost;
 
-if ($config->suggest < $fee) {
-    $templatedata->suggest = $fee;
+$templatedata->fixcost = $config->fixcost;
+if (!$config->fixcost) {
+    if ($config->suggest < $fee) {
+        $templatedata->suggest = $fee;
+    } else {
+        $templatedata->suggest = $config->suggest;
+    }
 } else {
-    $templatedata->suggest = $config->suggest;
+    $templatedata->localizedcost = \core_payment\helper::get_cost_as_string($fee, $currency);
 }
 
-$templatedata->maxcost = $config->maxcost;
 $templatedata->skipmode = $config->skipmode;
-
 if ($config->skipmode || $config->passwordmode) {
     $templatedata->usedetails = $config->usedetails;
 }

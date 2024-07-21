@@ -53,12 +53,15 @@ class gateway extends \core_payment\gateway {
 
         $mform->addElement('text', 'shopid', get_string('shopid', 'paygw_cryptocloud'));
         $mform->setType('shopid', PARAM_TEXT);
+        $mform->addRule('shopid', get_string('required'), 'required', null, 'client');
 
-        $mform->addElement('text', 'apikey', get_string('apikey', 'paygw_cryptocloud'), ['size' => 48]);
+        $mform->addElement('text', 'apikey', get_string('apikey', 'paygw_cryptocloud'), ['size' => 50]);
         $mform->setType('apikey', PARAM_TEXT);
+        $mform->addRule('apikey', get_string('required'), 'required', null, 'client');
 
-        $mform->addElement('text', 'secretkey', get_string('secretkey', 'paygw_cryptocloud'), ['size' => 48]);
+        $mform->addElement('text', 'secretkey', get_string('secretkey', 'paygw_cryptocloud'), ['size' => 50]);
         $mform->setType('secretkey', PARAM_TEXT);
+        $mform->addRule('secretkey', get_string('required'), 'required', null, 'client');
 
         $options = [
             'USDT_TRC20' => 'USDT_TRC20',
@@ -124,19 +127,38 @@ class gateway extends \core_payment\gateway {
         );
         $mform->setType('showduration', PARAM_INT);
 
+        $mform->addElement(
+            'advcheckbox',
+            'fixcost',
+            get_string('fixcost', 'paygw_cryptocloud'),
+            get_string('fixcost', 'paygw_cryptocloud')
+        );
+        $mform->setType('fixcost', PARAM_INT);
+        $mform->addHelpButton('fixcost', 'fixcost', 'paygw_cryptocloud');
+
         $mform->addElement('text', 'suggest', get_string('suggest', 'paygw_cryptocloud'), ['size' => 10]);
         $mform->setType('suggest', PARAM_TEXT);
+        $mform->disabledIf('suggest', 'fixcost', "neq", 0);
 
         $mform->addElement('text', 'maxcost', get_string('maxcost', 'paygw_cryptocloud'), ['size' => 10]);
         $mform->setType('maxcost', PARAM_TEXT);
+        $mform->disabledIf('maxcost', 'fixcost', "neq", 0);
 
         global $CFG;
-        $mform->addElement('html', '<div class="label-callback" style="background: #F2EFE6; padding: 15px;">' .
+        $mform->addElement('html', '<div class="label-callback" style="background: pink; padding: 15px;">' .
                                     get_string('callback_url', 'paygw_cryptocloud') . '<br>');
         $mform->addElement('html', $CFG->wwwroot . '/payment/gateway/cryptocloud/callback.php<br>');
         $mform->addElement('html', get_string('return_url', 'paygw_cryptocloud') . '<br>');
         $mform->addElement('html', $CFG->wwwroot . '/payment/gateway/cryptocloud/return.php<br>');
         $mform->addElement('html', get_string('callback_help', 'paygw_cryptocloud') . '</div><br>');
+
+        $header = '<div>Новые версии плагина вы можете найти на
+ <a href=https://github.com/Snickser/moodle-paygw_cryptocloud>GitHub.com</a><br>
+ Пожалуйста, отправьте мне немножко <a href="https://yoomoney.ru/fundraise/143H2JO3LLE.240720">доната</a>😊</div>
+ <iframe src="https://yoomoney.ru/quickpay/fundraise/button?billNumber=143H2JO3LLE.240720"
+ width="330" height="50" frameborder="0" allowtransparency="true" scrolling="no"></iframe>';
+        $mform->addElement('html', $header);
+
     }
 
     /**
