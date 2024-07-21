@@ -61,6 +61,7 @@ class notifications {
             'orderid'  => $orderid,
             'fullname' => fullname($user),
             'firstname' => $user->firstname,
+            'localizedcost' => \core_payment\helper::get_cost_as_string($fee, $currency),
         ];
 
         $message = new \core\message\message();
@@ -73,6 +74,11 @@ class notifications {
             case 'Success completed':
                 $messagebody = get_string('message_success_completed', 'paygw_cryptocloud', $a);
                 break;
+            case 'Invoice created':
+                $messagebody = get_string('message_invoice_created', 'paygw_cryptocloud', $a);
+                break;
+            default:
+                $messagebody = 'null';
         }
 
         $message->fullmessage       = $messagebody;

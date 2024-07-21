@@ -12,6 +12,14 @@ https://cryptocloud.plus/
 
 [![Build Status](https://github.com/Snickser/moodle-paygw_cryptocloud/actions/workflows/moodle-ci.yml/badge.svg)](https://github.com/Snickser/moodle-paygw_cryptocloud/actions/workflows/moodle-ci.yml)
 
+## Recommendations
+
++ Moodle 4.3+
++ To enroll in the course, use my patched plugin "Enrollment for payment" [enrol_fee](https://github.com/Snickser/moodle-enrol_fee/tree/dev).
++ For the control task, use the plugin I patched at the link [mod_gwpayments](https://github.com/Snickser/moodle-mod_gwpayments/tree/dev).
++ To limit availability, use the plugin I patched at the link [availability_gwpayments](https://github.com/Snickser/moodle-availability_gwpayments/tree/dev).
++ Plugin for viewing reports [report_payments](https://github.com/Snickser/moodle-report_payments/tree/dev).
+
 ## INSTALLATION
 
 Download the latest **paygw_cryptocloud.zip** and unzip the contents into the **/payment/gateway** directory. Or upload it from Moodle plugins adminnistration interface.

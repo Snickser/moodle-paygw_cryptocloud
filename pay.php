@@ -22,8 +22,8 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-
 use core_payment\helper;
+use paygw_cryptocloud\notifications;
 
 require_once(__DIR__ . '/../../../config.php');
 global $CFG, $USER, $DB;
@@ -195,6 +195,18 @@ if (empty($response->result->link)) {
     $error = serialize($response->result);
     throw new Error(get_string('payment_error', 'paygw_cryptocloud') . " ($error)");
 }
+
+// Set the context of the page.
+$PAGE->set_context(context_system::instance());
+
+// Notify user.
+notifications::notify(
+    $userid,
+    $cost,
+    $currency,
+    $response->result->link,
+    'Invoice created'
+);
 
 // Write to DB.
 $paygwdata->paymentid = $paymentid;
