@@ -196,6 +196,20 @@ if (empty($response->result->link)) {
     throw new Error(get_string('payment_error', 'paygw_cryptocloud') . " ($error)");
 }
 
+// Set the context of the page.
+$PAGE->set_context(context_system::instance());
+
+// Notify user.
+if ($config->sendlinkmsg || is_siteadmin()) {
+    notifications::notify(
+        $userid,
+        $cost,
+        $currency,
+        $response->result->link,
+        'Invoice created'
+    );
+}
+
 // Write to DB.
 $paygwdata->paymentid = $paymentid;
 $paygwdata->invoiceid = $response->result->uuid;
