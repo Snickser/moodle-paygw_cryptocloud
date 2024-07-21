@@ -200,15 +200,13 @@ if (empty($response->result->link)) {
 $PAGE->set_context(context_system::instance());
 
 // Notify user.
-if ($config->sendlinkmsg || is_siteadmin()) {
-    notifications::notify(
-        $userid,
-        $cost,
-        $currency,
-        $response->result->link,
-        'Invoice created'
-    );
-}
+notifications::notify(
+    $userid,
+    $cost,
+    $currency,
+    $response->result->link,
+    'Invoice created'
+);
 
 // Write to DB.
 $paygwdata->paymentid = $paymentid;
