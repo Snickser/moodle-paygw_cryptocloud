@@ -73,3 +73,7 @@ $string['suggest'] = 'Suggested cost';
 $string['usedetails'] = 'Make it collapsible';
 $string['usedetails_help'] = 'Display a button or password in a collapsed block.';
 $string['usedetails_text'] = 'Click here if you are unable to donate.';
+
+$string['fixcost'] = 'Fixed price mode';
+$string['fixcost_help'] = 'Disables the ability for students to pay with an arbitrary amount.';
+$string['maxcosterror'] = 'The maximum price must be higher than the recommended price';
