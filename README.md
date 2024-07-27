@@ -6,7 +6,7 @@ v0.12
 
 https://cryptocloud.plus/
 
-![img](https://github.com/Snickser/moodle-paygw_cryptocloud/blob/main/pix/img.svg)
+![img](https://raw.githubusercontent.com/Snickser/moodle-paygw_cryptocloud/d48eb290dee4d843ba8e0c07911b64ead7db8bb7/pix/img.svg)
 
 ## Status
 
