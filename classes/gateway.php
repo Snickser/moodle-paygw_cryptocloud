@@ -55,11 +55,11 @@ class gateway extends \core_payment\gateway {
         $mform->setType('shopid', PARAM_TEXT);
         $mform->addRule('shopid', get_string('required'), 'required', null, 'client');
 
-        $mform->addElement('text', 'apikey', get_string('apikey', 'paygw_cryptocloud'), ['size' => 50]);
+        $mform->addElement('text', 'apikey', get_string('apikey', 'paygw_cryptocloud'), ['size' => 30]);
         $mform->setType('apikey', PARAM_TEXT);
         $mform->addRule('apikey', get_string('required'), 'required', null, 'client');
 
-        $mform->addElement('text', 'secretkey', get_string('secretkey', 'paygw_cryptocloud'), ['size' => 50]);
+        $mform->addElement('text', 'secretkey', get_string('secretkey', 'paygw_cryptocloud'), ['size' => 30]);
         $mform->setType('secretkey', PARAM_TEXT);
         $mform->addRule('secretkey', get_string('required'), 'required', null, 'client');
 
