@@ -112,7 +112,10 @@ if ($config->showduration) {
 }
 
 $templatedata->passwordmode = $config->passwordmode;
-$templatedata->maxcost = $config->maxcost;
+
+if (isset($config->maxcost)) {
+    $templatedata->maxcost = $config->maxcost;
+}
 
 $templatedata->fixcost = $config->fixcost;
 if (!$config->fixcost) {
