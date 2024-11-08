@@ -26,6 +26,8 @@ $string['apikey'] = 'API Key';
 $string['callback_help'] = 'Copy this lines and paste it into the cryptocloud project settings. Switch off "My project on CMS".';
 $string['callback_url'] = 'Notification URL:';
 $string['cryptocurrency'] = 'Allowed cryptocurrency';
+$string['fixcost'] = 'Fixed price mode';
+$string['fixcost_help'] = 'Disables the ability for students to pay with an arbitrary amount.';
 $string['fixdesc'] = 'Fixed payment comment';
 $string['fixdesc_help'] = 'This setting sets a fixed comment for all payments.';
 $string['gatewaydescription'] = 'CryptoCloud — a reliable way to easily and conveniently accept payments from around the world in the most popular cryptocurrencies.';
@@ -33,6 +35,10 @@ $string['gatewayname'] = 'CryptoCloud';
 $string['internalerror'] = 'An internal error has occurred. Please contact us.';
 $string['istestmode'] = 'Test mode';
 $string['maxcost'] = 'Maximium cost';
+$string['maxcosterror'] = 'The maximum price must be higher than the recommended price';
+$string['message_invoice_created'] = 'Hello {$a->firstname}!
+Your payment link {$a->orderid} to {$a->fee} {$a->currency} has been successfully created.
+You can pay it within an hour.';
 $string['message_success_completed'] = 'Hello {$a->firstname},
 You transaction of payment id {$a->orderid} with cost of {$a->fee} {$a->currency} is successfully completed.
 If the item is not accessable please contact the administrator.';
@@ -73,11 +79,3 @@ $string['suggest'] = 'Suggested cost';
 $string['usedetails'] = 'Make it collapsible';
 $string['usedetails_help'] = 'Display a button or password in a collapsed block.';
 $string['usedetails_text'] = 'Click here if you are unable to donate.';
-
-$string['fixcost'] = 'Fixed price mode';
-$string['fixcost_help'] = 'Disables the ability for students to pay with an arbitrary amount.';
-$string['maxcosterror'] = 'The maximum price must be higher than the recommended price';
-
-$string['message_invoice_created'] = 'Hello {$a->firstname}!
-Your payment link {$a->orderid} to {$a->fee} {$a->currency} has been successfully created.
-You can pay it within an hour.';

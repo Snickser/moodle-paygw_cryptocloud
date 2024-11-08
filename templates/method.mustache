@@ -41,7 +41,7 @@
     }
 
 }}
-<form id="cryptocloud-method-select" action="{{url}}/payment/gateway/cryptocloud/pay.php" class="cryptocloud-form" method="POST">
+<form id="cryptocloud-method-select" action="{{config.wwwroot}}/payment/gateway/cryptocloud/pay.php" class="cryptocloud-form" method="POST">
     <div class="cost-display">
         <div style="text-align: center;">
 
@@ -95,6 +95,7 @@
 {{#passwordmode}}
 <p>{{# str }} password_text, paygw_cryptocloud {{/ str}} <br>
 {{# str }} password {{/ str}}: <input type="password" id="password" name="password" value="" autocomplete="off">
+<button type="submit" class="btn btn-secondary btn-paygw-password">{{# str }} submit {{/ str }}</button>
 </p>
 {{/passwordmode}}
 {{/skipmode}}

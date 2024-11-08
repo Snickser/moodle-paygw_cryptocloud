@@ -69,7 +69,7 @@ if ($component == "enrol_fee") {
 if ($enrolperiod > 0) {
     if ($enrolperiod >= 86400 * 7) {
         $enrolperioddesc = get_string('weeks');
-        $enrolperiod = $enrolperiod / (86400 * 7);
+        $enrolperiod = round($enrolperiod / (86400 * 7));
     } else if ($enrolperiod >= 86400) {
         $enrolperioddesc = get_string('days');
         $enrolperiod = round($enrolperiod / 86400);
@@ -83,7 +83,6 @@ if ($enrolperiod > 0) {
         $enrolperioddesc = get_string('seconds');
     }
 }
-
 
 // Set the context of the page.
 $PAGE->set_context(context_system::instance());
@@ -113,7 +112,10 @@ if ($config->showduration) {
 }
 
 $templatedata->passwordmode = $config->passwordmode;
-$templatedata->maxcost = $config->maxcost;
+
+if (isset($config->maxcost)) {
+    $templatedata->maxcost = $config->maxcost;
+}
 
 $templatedata->fixcost = $config->fixcost;
 if (!$config->fixcost) {
@@ -139,7 +141,6 @@ if (!empty($config->fixdesc)) {
 }
 
 $templatedata->image = $OUTPUT->image_url('img', 'paygw_cryptocloud');
-
 echo $OUTPUT->render_from_template('paygw_cryptocloud/method', $templatedata);
 
 echo $OUTPUT->footer();
