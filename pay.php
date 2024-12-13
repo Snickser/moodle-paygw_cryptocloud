@@ -52,7 +52,7 @@ $surcharge = helper::get_gateway_surcharge('cryptocloud');// In case user uses s
 $cost = helper::get_rounded_cost($payable->get_amount(), $payable->get_currency(), $surcharge);
 
 // Check self cost if not fixcost.
-if (!empty($costself) && $cost > $config->maxcost) {
+if (!empty($costself) && !$config->fixcost) {
     $cost = $costself;
 }
 
