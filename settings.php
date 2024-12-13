@@ -25,7 +25,10 @@
 defined('MOODLE_INTERNAL') || die();
 
 if ($ADMIN->fulltree) {
-    $settings->add(new admin_setting_heading('paygw_cryptocloud_settings', '', get_string('pluginname_desc', 'paygw_cryptocloud')));
+    $plugininfo = \core_plugin_manager::instance()->get_plugin_info('paygw_cryptocloud');
+    $donate = get_string('donate', 'paygw_cryptocloud', $plugininfo);
+
+    $settings->add(new admin_setting_heading('paygw_cryptocloud_settings', $donate, get_string('pluginname_desc', 'paygw_cryptocloud')));
 
     \core_payment\helper::add_common_gateway_settings($settings, 'paygw_cryptocloud');
 }

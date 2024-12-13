@@ -60,7 +60,7 @@ class provider implements \core_privacy\local\request\data_provider, paygw_provi
             'paygw_cryptocloud',
             [
                 'invoiceid'  => 'privacy:metadata:paygw_cryptocloud:invoiceid',
-                'courceid'   => 'privacy:metadata:paygw_cryptocloud:courceid',
+                'courseid'   => 'privacy:metadata:paygw_cryptocloud:courseid',
                 'groupnames' => 'privacy:metadata:paygw_cryptocloud:groupnames',
                 'success'    => 'privacy:metadata:paygw_cryptocloud:success',
             ],

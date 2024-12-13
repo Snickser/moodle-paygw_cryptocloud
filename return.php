@@ -34,11 +34,11 @@ require_login();
 $id = required_param('order_id', PARAM_INT);
 
 if (!$cryptocloudtx = $DB->get_record('paygw_cryptocloud', ['paymentid' => $id])) {
-    throw new Error('FAIL. Not a valid transaction id');
+    throw new \moodle_exception(get_string('error_notvalidtxid', 'paygw_cryptocloud'), 'paygw_cryptocloud');
 }
 
 if (!$payment = $DB->get_record('payments', ['id' => $cryptocloudtx->paymentid])) {
-    throw new Error('FAIL. Not a valid payment.');
+    throw new \moodle_exception(get_string('error_notvalidpayment', 'paygw_cryptocloud'), 'paygw_cryptocloud');
 }
 
 $paymentarea = $payment->paymentarea;
