@@ -103,6 +103,10 @@ $paygwdata->id = $transactionid;
 // Build redirect.
 $url = helper::get_success_url($component, $paymentarea, $itemid);
 
+// Set the context of the page.
+$PAGE->set_url($SCRIPT);
+$PAGE->set_context(context_system::instance());
+
 // Check passwordmode or skipmode.
 if (!empty($password) || $skipmode) {
     $success = false;
@@ -195,9 +199,6 @@ if (empty($response->result->link)) {
     $error = serialize($response->result);
     throw new Error(get_string('payment_error', 'paygw_cryptocloud') . " ($error)");
 }
-
-// Set the context of the page.
-$PAGE->set_context(context_system::instance());
 
 // Notify user.
 notifications::notify(
