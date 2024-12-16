@@ -10,10 +10,10 @@ https://cryptocloud.plus/
 ## Recommendations
 
 + Moodle 4.3+
-+ To enroll in the course, use my patched plugin "Enrollment for payment" [enrol_yafee](https://github.com/Snickser/moodle-enrol_yafee).
-+ For the control task, use the plugin I patched at the link [mod_gwpayments](https://github.com/Snickser/moodle-mod_gwpayments/tree/dev).
-+ To limit availability, use the plugin I patched at the link [availability_gwpayments](https://github.com/Snickser/moodle-availability_gwpayments/tree/dev).
-+ Plugin for viewing reports [report_payments](https://github.com/Snickser/moodle-report_payments/tree/dev).
++ To enroll in the course, use my patched plugin "Enrollment for payment" [enrol_yafee](https://github.com/Snickser/moodle-enrol_yafee)
++ For the control task, use the plugin I patched at the link [mod_gwpayments](https://github.com/Snickser/moodle-mod_gwpayments/tree/dev)
++ To limit availability, use the plugin I patched at the link [availability_gwpayments](https://github.com/Snickser/moodle-availability_gwpayments/tree/dev)
++ Plugin for viewing reports [report_payments](https://github.com/Snickser/moodle-report_payments/tree/dev)
 
 ## INSTALLATION
 
